@@ -1,0 +1,59 @@
+{% extends 'trips/base.html' %}
+
+{% block title %}Accueil – Planificateur de voyages{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <h1 class="mb-3">Planifiez votre prochain voyage en quelques clics</h1>
+  <p class="lead mb-4">
+    Choisissez une destination, le nombre de jours et le type de voyageurs, puis
+    laissez l’outil générer un programme complet pour chaque journée.
+  </p>
+  <a href="{% url 'trip_request_create' %}" class="btn btn-success btn-lg">
+    Commencer un nouveau voyage
+  </a>
+</div>
+
+
+
+<h2 class="mb-3">Destinations mises en avant</h2>
+<div class="row">
+  {% for dest in destinations %}
+    <div class="col-md-4 mb-3">
+      <div class="card trip-card h-100">
+        {% if dest.main_image %}
+          <img src="{{ dest.main_image.url }}" class="card-img-top" alt="{{ dest.name }}">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ dest.name }}</h5>
+          <p class="card-text text-muted">{{ dest.short_description|truncatechars:100 }}</p>
+          <span class="badge bg-success">{{ dest.city }} {{ dest.country }}</span>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No destinations available – Add some from the admin panel.</p>
+  {% endfor %}
+</div>
+
+<h2 class="mt-4 mb-3"> Modèles de voyages prêts à l’emploi</h2>
+<div class="row">
+  {% for trip in base_trips %}
+    <div class="col-md-4 mb-3">
+      <div class="card trip-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ trip.title }}</h5>
+          <p class="card-text text-muted">
+            {{ trip.destination.name }} – {{ trip.get_trip_type_display }}
+          </p>
+          <p class="card-text">
+            A commencer par <strong>{{ trip.base_price }} CHF</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No trips available – Add some from the admin panel.</p>
+  {% endfor %}
+</div>
+{% endblock %}

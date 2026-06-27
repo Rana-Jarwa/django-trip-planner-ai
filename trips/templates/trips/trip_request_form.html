@@ -1,0 +1,79 @@
+{% extends 'trips/base.html' %}
+
+{% block title %}Nouvelle demande de voyage{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Créez votre voyage sur mesure</h1>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="bg-white p-4 rounded shadow-sm border border-success-subtle">
+      <h2 class="h4 mb-3 text-success">Détails de votre voyage</h2>
+
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          {{ form.base_trip.label_tag }}
+          {{ form.base_trip }}
+          <div class="form-text">
+            Optionnel : choisissez un modèle de voyage préparé par l’admin.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          {{ form.destination.label_tag }}
+          {{ form.destination }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.user_name.label_tag }}
+          {{ form.user_name }}
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            {{ form.days.label_tag }}
+            {{ form.days }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.people_adults.label_tag }}
+            {{ form.people_adults }}
+          </div>
+          <div class="col-md-4 mb-3">
+            {{ form.people_children.label_tag }}
+            {{ form.people_children }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          {{ form.preferences.label_tag }}
+          {{ form.preferences }}
+          <div class="form-text">
+            Exemple : nature, aventure, gastronomie, musées…
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-lg">
+          Générer mon plan de voyage
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="bg-white p-4 rounded shadow-sm mb-3">
+      <h2 class="h5 text-secondary mb-3">Exemple de paramètres</h2>
+      <ul class="list-unstyled small">
+        <li><strong>Destination :</strong> Genève</li>
+        <li><strong>Nombre de jours :</strong> 3</li>
+        <li><strong>Voyageurs :</strong> 2 adultes, 1 enfant</li>
+        <li><strong>Préférences :</strong> nature, vue sur lac, restaurants</li>
+      </ul>
+      <p class="small text-muted mb-0">
+        Ces exemples sont uniquement là pour vous inspirer. Adaptez-les à votre propre voyage.
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

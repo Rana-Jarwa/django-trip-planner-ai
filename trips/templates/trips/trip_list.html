@@ -1,0 +1,29 @@
+{% extends 'trips/base.html' %}
+
+{% block title %}الرحلات المقترحة{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">الرحلات المقترحة من الأدمن</h1>
+
+<div class="row">
+  {% for trip in base_trips %}
+    <div class="col-md-4 mb-3">
+      <div class="card trip-card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ trip.title }}</h5>
+          <p class="card-text text-muted">
+            {{ trip.destination.name }} · {{ trip.get_trip_type_display }}
+          </p>
+          <p class="card-text">
+            مدة مقترحة: من {{ trip.min_days }} إلى {{ trip.max_days }} يوم.<br>
+            السعر الأساسي: <strong>{{ trip.base_price }} CHF</strong>
+          </p>
+          <p class="card-text small">{{ trip.description|truncatechars:120 }}</p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>لم يتم إضافة رحلات بعد.</p>
+  {% endfor %}
+</div>
+{% endblock %}
